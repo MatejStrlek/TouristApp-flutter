@@ -1,3 +1,4 @@
+import 'package:faks/style/style_extensions.dart';
 import 'package:faks/widget/custom_primary_button.dart';
 import 'package:faks/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,9 @@ class SignInScreen extends StatelessWidget {
               children: [
                 Image.asset("assets/images/login_image.png", width: 250),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   "Please sign in to your account.",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: context.textSubtitle,
                 ),
                 const SizedBox(height: 20),
                 const CustomTextField(label: "Email"),
@@ -38,6 +39,11 @@ class SignInScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 45),
                 const CustomPrimaryButton(text: "Sign in"),
+                const Spacer(),
+                Text(
+                    "Don't have an account? Sign up.",
+                    style: context.textSubtitle,
+                ) //TODO make this text button
               ],
             ),
           ),

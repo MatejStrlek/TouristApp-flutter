@@ -1,4 +1,4 @@
-import 'package:faks/style/colors.dart';
+import 'package:faks/style/style_extensions.dart';
 import 'package:flutter/material.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
@@ -17,13 +17,37 @@ class CustomPrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
-          backgroundColor: Theme.of(context).extension<AppColors>()!.gradientBegin!,
+          backgroundColor: context.colorGradientBegin,
           textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
           ),
+          padding: EdgeInsets.zero,
         ),
         onPressed: () {},
-        child: Text(text),
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                context.colorGradientBegin,
+                context.colorGradientEnd,
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Container(
+            constraints: BoxConstraints(
+              minHeight: 50
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              text,
+              style: context.textButton.copyWith(color: Colors.white
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
