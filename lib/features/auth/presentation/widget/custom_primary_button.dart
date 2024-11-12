@@ -1,12 +1,14 @@
-import 'package:faks/style/style_extensions.dart';
+import 'package:faks/core/style/style_extensions.dart';
 import 'package:flutter/material.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
-  final String text;
+  final Widget child;
+  final VoidCallback onPressed;
 
   const CustomPrimaryButton({
     super.key,
-    required this.text
+    required this.child,
+    required this.onPressed,
   });
 
   @override
@@ -23,7 +25,7 @@ class CustomPrimaryButton extends StatelessWidget {
           ),
           padding: EdgeInsets.zero,
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -34,18 +36,12 @@ class CustomPrimaryButton extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            constraints: BoxConstraints(
-              minHeight: 50
-            ),
+            constraints: const BoxConstraints(minHeight: 50),
             alignment: Alignment.center,
-            child: Text(
-              text,
-              style: context.textButton.copyWith(color: Colors.white
-              ),
-            ),
+            child: child,
           ),
         ),
       ),

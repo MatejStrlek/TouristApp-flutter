@@ -5,5 +5,6 @@ const _subtitleTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
 
 extension CustomTextStyle on TextTheme {
   TextStyle get buttonTextStyle => _buttonTextStyle;
+
   TextStyle get subtitleTextStyle => _subtitleTextStyle;
 }

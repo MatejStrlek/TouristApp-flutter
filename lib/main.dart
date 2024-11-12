@@ -1,9 +1,14 @@
-import 'package:faks/screen/sign_in_screen.dart';
-import 'package:faks/style/app_theme.dart';
+import 'package:faks/features/auth/presentation/screen/sign_in_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'core/style/app_theme.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

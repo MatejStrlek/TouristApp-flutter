@@ -43,7 +43,8 @@ class AppColors extends ThemeExtension<AppColors> {
       );
 
   @override
-  ThemeExtension<AppColors> lerp(covariant ThemeExtension<AppColors>? other, double t) {
+  ThemeExtension<AppColors> lerp(
+      covariant ThemeExtension<AppColors>? other, double t) {
     if (other is! AppColors) {
       return this;
     }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "48367187621",
+    "project_id": "tourist-app-87dc2",
+    "storage_bucket": "tourist-app-87dc2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48367187621:android:201771bff3b4b270203f4c",
+        "android_client_info": {
+          "package_name": "hr.algebra.faks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDedb0MjOGa-3VWPu2RQi4CMVWEOnPCvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
