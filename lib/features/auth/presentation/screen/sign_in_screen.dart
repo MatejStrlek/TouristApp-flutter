@@ -1,3 +1,4 @@
+import 'package:faks/core/app_route.dart';
 import 'package:faks/core/di.dart';
 import 'package:faks/core/style/style_extensions.dart';
 import 'package:faks/features/auth/presentation/controller/state/auth_state.dart';
@@ -31,12 +32,18 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           case AuthenticatedState():
             print("SUCCESS!");
             isLoading.value = false;
+            Navigator.of(context).pushReplacementNamed(AppRoute.home);
+
           case LoadingState():
             print("LOADING!");
             isLoading.value = true;
-          case UnauthenticatedState():
-            print("ERROR!");
+
+          case UnauthenticatedState(failure: var failure):
+            print("ERROR!: ${failure!.message}");
             isLoading.value = false;
+            final snackBar = SnackBar(
+                content: Text(failure.message), backgroundColor: Colors.red);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       });
     });
