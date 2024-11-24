@@ -1,3 +1,4 @@
+import 'package:faks/features/locations/presentation/location_list/screen/location_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
 
   final _screens = [
-    const Text('Home Screen'),
+    LocationListScreen(),
     const Text('Favorites Screen'),
     const Text('Profile Screen'),
   ];
@@ -20,9 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: _screens.elementAt(index),
-        ),
+        child: _screens.elementAt(index),
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
