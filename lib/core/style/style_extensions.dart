@@ -13,4 +13,6 @@ extension StyleExtensions on BuildContext {
 
   TextStyle get textButton => Theme.of(this).textTheme.buttonTextStyle;
   TextStyle get textSubtitle => Theme.of(this).textTheme.subtitleTextStyle;
+  TextStyle get textTitle => Theme.of(this).textTheme.titleTextStyle;
+  TextStyle get textDescription => Theme.of(this).textTheme.descriptionTextStyle;
 }

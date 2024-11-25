@@ -1,3 +1,4 @@
+import 'package:faks/core/error/failure.dart';
 import 'package:faks/features/locations/domain/model/location.dart';
 
 sealed class LocationListState {}
@@ -13,7 +14,7 @@ class FilledState extends LocationListState {
 class EmptyState extends LocationListState {}
 
 class ErrorState extends LocationListState {
-  final String message;
+  final Failure failure;
 
-  ErrorState(this.message);
+  ErrorState(this.failure);
 }

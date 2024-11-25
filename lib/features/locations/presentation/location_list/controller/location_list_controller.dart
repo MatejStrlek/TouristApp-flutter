@@ -14,11 +14,12 @@ class LocationListController extends Notifier<LocationListState> {
   }
 
   void getAllLocations() async {
-    final result = await _useCase();
-    print("HERE");
+    state = LoadingState();
+    await Future.delayed(const Duration(milliseconds: 1500));
 
+    final result = await _useCase();
     result.fold(
-      (failure) => state = ErrorState(failure.message),
+      (failure) => state = ErrorState(failure),
       (list) => state = list.isEmpty ? EmptyState() : FilledState(list),
     );
   }
