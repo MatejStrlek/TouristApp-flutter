@@ -7,6 +7,7 @@ class Location {
   final int id;
   final String title;
   final String description;
+  final String address;
   final double lat;
   final double lng;
   final int rating;
@@ -16,6 +17,7 @@ class Location {
     required this.id,
     required this.title,
     required this.description,
+    required this.address,
     required this.lat,
     required this.lng,
     required this.rating,
