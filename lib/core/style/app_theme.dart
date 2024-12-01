@@ -13,6 +13,7 @@ final lightTheme = ThemeData(
       error: errorColorLight,
       gradientBegin: gradientBeginColorLight,
       gradientEnd: gradientEndColorLight,
+      cardText: cardTextColorLight,
     ),
   ],
 );
