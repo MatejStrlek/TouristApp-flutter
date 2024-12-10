@@ -21,6 +21,7 @@ class LocationListScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Places', style: context.textTitle),
+          const SizedBox(height: 15),
           switch (state) {
             LoadingState() => Expanded(
                   child: Center(
