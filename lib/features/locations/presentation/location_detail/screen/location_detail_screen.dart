@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:faks/core/style/style_extensions.dart';
 import 'package:faks/features/auth/presentation/widget/custom_primary_button.dart';
+import 'package:faks/features/locations/domain/model/location.dart';
+import 'package:faks/features/locations/presentation/widget/star_rating.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LocationDetailScreen extends StatelessWidget {
   const LocationDetailScreen({super.key});
@@ -8,14 +13,15 @@ class LocationDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final location = ModalRoute.of(context)?.settings.arguments as Location;
 
     return Scaffold(
       body: SafeArea(
         top: false,
         child: Stack(
           children: [
-            Image.asset(
-              "assets/images/placeholder.jpg",
+            Image.network(
+              location.imageUrl,
               height: screenSize.height / 2.5,
               fit: BoxFit.cover,
             ),
@@ -27,7 +33,7 @@ class LocationDetailScreen extends StatelessWidget {
                   backgroundColor: context.colorBackground,
                   child: IconButton(
                     color: context.colorGradientEnd,
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context).pop(),
                     icon: const Icon(Icons.chevron_left_rounded, size: 35),
                   ),
                 ),
@@ -47,17 +53,53 @@ class LocationDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Location Name"),
-                  Text("Location Address"),
-                  Text("Rating"),
-                  Text("Description"),
-                  Spacer(),
+                  Text(
+                    location.title,
+                    style: context.textTitle,
+                  ),
+                  Text(
+                    location.address,
+                    style: context.textSubtitle,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Rating: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  StarsRating(
+                    rating: location.rating,
+                    activeStar: ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (bounds) => LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          context.colorGradientBegin,
+                          context.colorGradientEnd,
+                        ],
+                      ).createShader(bounds),
+                      child: Icon(Icons.star, color: Colors.yellow, size: 28),
+                    ),
+                    inactiveStar:
+                        Icon(Icons.star, color: Colors.grey, size: 28),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    location.description,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 14),
+                  ),
+                  const Spacer(),
                   CustomPrimaryButton(
-                      child: Text(
-                        "Show on maps",
-                        style: context.textButton,
-                      ),
-                      onPressed: () {}),
+                    child: Text(
+                      "Show on maps",
+                      style: context.textButton,
+                    ),
+                    onPressed: () => Platform.isAndroid
+                        ? _launchAndroidMaps(
+                            context, location.lat, location.lng, location.title)
+                        : _launchIOSMaps(context, location.lat, location.lng),
+                  ),
                 ],
               ),
             ),
@@ -65,5 +107,33 @@ class LocationDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void _launchIOSMaps(
+    BuildContext context, final double lat, final double lng) async {
+  try {
+    final url = Uri.parse('maps:$lat,$lng?q=$lat,$lng');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+  } catch (e) {
+    if (context.mounted) {
+      const snackBar = SnackBar(content: Text("Error opening maps."));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+}
+
+void _launchAndroidMaps(
+    BuildContext context, final double lat, final double lng, final String title) async {
+  try {
+    final url = Uri.parse('geo:$lat,$lng?q=$lat,$lng($title)');
+    await launchUrl(url);
+  } catch (e) {
+    if (context.mounted) {
+      const snackBar = SnackBar(content: Text("Error opening maps."));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }

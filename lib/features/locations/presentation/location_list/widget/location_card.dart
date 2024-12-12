@@ -1,7 +1,9 @@
-import 'package:faks/core/app_route.dart';
 import 'package:faks/core/style/style_extensions.dart';
 import 'package:faks/features/locations/domain/model/location.dart';
 import 'package:flutter/material.dart';
+
+import '../../location_detail/screen/location_detail_screen.dart';
+import '../../widget/star_rating.dart';
 
 class LocationCard extends StatelessWidget {
   final Location location;
@@ -11,9 +13,11 @@ class LocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(
-        AppRoute.details,
-        //arguments: location,
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => LocationDetailScreen(),
+          settings: RouteSettings(arguments: location),
+        ),
       ),
       child: Container(
         height: 100,
@@ -56,7 +60,11 @@ class LocationCard extends StatelessWidget {
                   Text("${location.lat}, ${location.lng}",
                       style: context.textCardText),
                   const Spacer(),
-                  StarsRating(location.rating),
+                  StarsRating(
+                    rating: location.rating,
+                    activeStar: Icon(Icons.star, color: Colors.yellow),
+                    inactiveStar: Icon(Icons.star, color: Colors.grey),
+                  ),
                 ],
               ),
             ),
@@ -72,23 +80,6 @@ class LocationCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class StarsRating extends StatelessWidget {
-  final int numOfStars;
-
-  const StarsRating(this.numOfStars, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(
-        5,
-        (index) => Icon(Icons.star,
-            color: index <= numOfStars - 1 ? Colors.yellow : Colors.grey),
       ),
     );
   }
