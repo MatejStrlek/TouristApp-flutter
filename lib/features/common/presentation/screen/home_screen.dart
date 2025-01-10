@@ -1,3 +1,4 @@
+import 'package:faks/features/locations/presentation/favorite_list/screen/favorite_list_screen.dart';
 import 'package:faks/features/locations/presentation/location_list/screen/location_list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _screens = [
     LocationListScreen(),
-    const Text('Favorites Screen'),
+    FavoriteListScreen(),
     const Text('Profile Screen'),
   ];
 

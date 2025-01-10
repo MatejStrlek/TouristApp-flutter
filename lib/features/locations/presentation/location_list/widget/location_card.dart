@@ -1,17 +1,19 @@
+import 'package:faks/core/di.dart';
 import 'package:faks/core/style/style_extensions.dart';
 import 'package:faks/features/locations/domain/model/location.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../location_detail/screen/location_detail_screen.dart';
 import '../../widget/star_rating.dart';
 
-class LocationCard extends StatelessWidget {
+class LocationCard extends ConsumerWidget {
   final Location location;
 
   const LocationCard(this.location, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
@@ -69,7 +71,7 @@ class LocationCard extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => print("Favorite"),
+              onTap: () => ref.read(favoriteListNotifier.notifier).setAsFavorite(location),
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(

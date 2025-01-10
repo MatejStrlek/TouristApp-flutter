@@ -1,5 +1,5 @@
 import 'package:faks/core/di.dart';
-import 'package:faks/features/locations/domain/usecase/getAllLocationsUseCase.dart';
+import 'package:faks/features/locations/domain/usecase/get_all_locations_use_case.dart';
 import 'package:faks/features/locations/presentation/location_list/controller/state/location_list_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

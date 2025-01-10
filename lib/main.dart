@@ -1,3 +1,4 @@
+import 'package:faks/features/locations/data/database/hive_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ import 'core/style/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await HiveManager.initHive();
   runApp(ProviderScope(child: const MyApp()));
 }
 
