@@ -72,10 +72,12 @@ class LocationCard extends ConsumerWidget {
             ),
             GestureDetector(
               onTap: () => ref.read(favoriteListNotifier.notifier).setAsFavorite(location),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.favorite,
+                  location.isFavorite ?
+                  Icons.favorite:
+                  Icons.favorite_outline,
                   color: Colors.white,
                 ),
               ),

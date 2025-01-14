@@ -16,11 +16,24 @@ class LocationRepositoryImpl implements LocationRepository {
   @override
   Future<Either<Failure, List<Location>>> getAllLocations() async {
     try {
-      final result = await _locationApi.getAllLocations();
+      final response = await _locationApi.getAllLocations();
+      final favorites = _databaseManager.getAllLocations();
+
+      final result = _applyFavoriteFlags(response, favorites);
+
       return Right(result);
     } catch (e) {
       return Left(NetworkFailure("Error fetching locations"));
     }
+  }
+
+  List<Location> _applyFavoriteFlags(final List<Location> response, final List<LocationEntity> favorites) {
+    for (var location in response) {
+      if (favorites.contains(LocationEntityToDomainMapper().revert(location))) {
+        location.isFavorite = true;
+      }
+    }
+    return response;
   }
 
   @override

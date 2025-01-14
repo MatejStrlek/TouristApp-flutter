@@ -15,6 +15,7 @@ class LocationEntityToDomainMapper implements Mapper<LocationEntity, Location> {
       lng: entity.lng,
       rating: entity.rating,
       imageUrl: entity.imageUrl,
+      isFavorite: entity.isFavorite,
     );
   }
 
@@ -29,6 +30,7 @@ class LocationEntityToDomainMapper implements Mapper<LocationEntity, Location> {
       lng: location.lng,
       rating: location.rating,
       imageUrl: location.imageUrl,
+      isFavorite: location.isFavorite,
     );
   }
 }

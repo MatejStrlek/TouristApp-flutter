@@ -20,6 +20,8 @@ class LocationEntity extends HiveObject {
   final int rating;
   @HiveField(7)
   final String imageUrl;
+  @HiveField(8)
+  bool isFavorite;
 
   LocationEntity({
     required this.id,
@@ -30,5 +32,19 @@ class LocationEntity extends HiveObject {
     required this.lng,
     required this.rating,
     required this.imageUrl,
+    this.isFavorite = false,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    return other is LocationEntity &&
+        other.id == id &&
+        other.title == title &&
+        other.address == address;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, title, address);
 }
