@@ -17,7 +17,7 @@ class EmptyStateWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          "assets/images/empty_favorites.png",
+          "assets/images/empty_screen.png",
           width: 400,
         ),
         const SizedBox(height: 30),
