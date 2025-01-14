@@ -20,10 +20,13 @@ class LocationDetailScreen extends StatelessWidget {
         top: false,
         child: Stack(
           children: [
-            Image.network(
-              location.imageUrl,
-              height: screenSize.height / 2.5,
-              fit: BoxFit.cover,
+            Hero(
+              tag: "location_image${location.id}",
+              child: Image.network(
+                location.imageUrl,
+                height: screenSize.height / 2.5,
+                fit: BoxFit.cover,
+              ),
             ),
             SafeArea(
               child: Padding(

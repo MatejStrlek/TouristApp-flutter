@@ -39,11 +39,14 @@ class LocationCard extends ConsumerWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(7),
-              child: Image.network(
-                location.imageUrl,
-                width: 110,
-                height: 85,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: "location_image${location.id}",
+                child: Image.network(
+                  location.imageUrl,
+                  width: 110,
+                  height: 85,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(width: 8),
