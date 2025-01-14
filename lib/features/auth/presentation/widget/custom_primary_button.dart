@@ -22,6 +22,7 @@ class CustomPrimaryButton extends StatelessWidget {
           backgroundColor: context.colorGradientBegin,
           textStyle: const TextStyle(
             fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
           padding: EdgeInsets.zero,
         ),
