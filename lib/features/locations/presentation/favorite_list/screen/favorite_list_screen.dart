@@ -1,6 +1,7 @@
 import 'package:faks/core/di.dart';
 import 'package:faks/core/style/style_extensions.dart';
 import 'package:faks/features/locations/presentation/favorite_list/controller/state/favorite_list_state.dart';
+import 'package:faks/features/locations/presentation/location_list/widget/empty_state_widget.dart';
 import 'package:faks/features/locations/presentation/location_list/widget/location_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,11 @@ class FavoriteListScreen extends ConsumerWidget {
                           LocationCard(list[index]),
                     ),
                   ),
-                EmptyState() => Text("No favorites yet", style: context.textSubtitle),
+                EmptyState() => const Expanded(
+                    child: EmptyStateWidget(
+                    subtitle: "No favorites found",
+                    description:  "Try to add some locations to your favorites...",
+                    )),
               }
             ],
           ),

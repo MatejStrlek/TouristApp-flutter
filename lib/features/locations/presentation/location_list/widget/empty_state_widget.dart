@@ -2,7 +2,14 @@ import 'package:faks/core/style/style_extensions.dart';
 import 'package:flutter/material.dart';
 
 class EmptyStateWidget extends StatelessWidget {
-  const EmptyStateWidget({super.key});
+  final String subtitle;
+  final String description;
+
+  const EmptyStateWidget({
+    super.key,
+    required this.subtitle,
+    required this.description
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +22,14 @@ class EmptyStateWidget extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         Text(
-          "No locations found",
+          subtitle,
           style: context.textSubtitle,
         ),
         const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Text(
-            "There was nothing found now, try later...",
+            description,
             style: context.textDescription,
             textAlign: TextAlign.center,
           ),

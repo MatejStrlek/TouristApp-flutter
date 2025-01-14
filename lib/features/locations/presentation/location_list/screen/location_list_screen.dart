@@ -28,15 +28,19 @@ class LocationListScreen extends ConsumerWidget {
                 child: Lottie.asset("assets/animations/loading_sights.json",
                     width: 100),
               )),
-            EmptyState() => const Expanded(child: EmptyStateWidget()),
+            EmptyState() => const Expanded(
+                child: EmptyStateWidget(
+                    subtitle: "No locations found",
+                    description: "There was nothing found now, try later..."
+                ),
+              ),
             ErrorState(failure: var failure) =>
               Expanded(child: ErrorStateWidget(failure: failure)),
             FilledState(locations: var list) => Expanded(
                 child: ListView.separated(
                   itemCount: list.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 10),
-                  itemBuilder: (context, index) =>
-                      LocationCard(list[index]),
+                  itemBuilder: (context, index) => LocationCard(list[index]),
                 ),
               )
           }
