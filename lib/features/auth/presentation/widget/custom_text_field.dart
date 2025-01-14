@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: label == 'Password' || label == 'Confirm Password',
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
