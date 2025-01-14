@@ -7,4 +7,5 @@ abstract interface class UserRepository {
       final String email, final String password);
   Future<Either<Failure, User?>> register(
       final String email, final String password);
+  Future<Either<Failure, void>> signOut();
 }

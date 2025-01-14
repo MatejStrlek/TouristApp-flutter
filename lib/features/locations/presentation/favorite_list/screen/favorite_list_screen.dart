@@ -12,6 +12,7 @@ class FavoriteListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(favoriteListNotifier);
+
     return Scaffold(
       body: SafeArea(
         child: Padding(

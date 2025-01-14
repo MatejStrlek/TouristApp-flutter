@@ -42,4 +42,14 @@ class UserRepositoryImpl implements UserRepository {
       return Left(NetworkFailure("Network error occurred"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      _userApi.signOut();
+      return Right(null);
+    } catch (e) {
+      return Left(NetworkFailure("Network error occurred"));
+    }
+  }
 }

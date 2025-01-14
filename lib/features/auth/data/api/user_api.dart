@@ -16,4 +16,8 @@ class UserApi {
         email: email, password: password);
     return credentials.user;
   }
+
+  Future<void> signOut() async {
+    await instance.signOut();
+  }
 }

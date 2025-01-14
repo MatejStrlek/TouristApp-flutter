@@ -3,6 +3,7 @@ import 'package:faks/features/auth/data/repository/user_repository.dart';
 import 'package:faks/features/auth/domain/repository/user_repository.dart';
 import 'package:faks/features/auth/domain/usecase/register_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/sign_in_use_case.dart';
+import 'package:faks/features/auth/domain/usecase/sign_out_use_case.dart';
 import 'package:faks/features/auth/presentation/controller/auth_controller.dart';
 import 'package:faks/features/auth/presentation/controller/state/auth_state.dart';
 import 'package:faks/features/locations/data/api/location_api.dart';
@@ -46,6 +47,8 @@ final signInUseCaseProvider = Provider<SignInUseCase>(
     (ref) => SignInUseCase(ref.watch(userRepositoryProvider)));
 final registerUseCaseProvider = Provider<RegisterUseCase>(
     (ref) => RegisterUseCase(ref.watch(userRepositoryProvider)));
+final signOutUseCaseProvider = Provider<SignOutUseCase>(
+    (ref) => SignOutUseCase(ref.watch(userRepositoryProvider)));
 
 final getAllLocationsUseCaseProvider = Provider<GetAllLocationsUseCase>(
     (ref) => GetAllLocationsUseCase(ref.watch(locationRepositoryProvider)));
