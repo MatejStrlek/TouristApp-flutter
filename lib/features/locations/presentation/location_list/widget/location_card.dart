@@ -71,7 +71,7 @@ class LocationCard extends ConsumerWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => ref.read(favoriteListNotifier.notifier).setAsFavorite(location),
+              onTap: () => _toggleFavoriteState(ref, location),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
@@ -86,5 +86,11 @@ class LocationCard extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _toggleFavoriteState(final WidgetRef ref, final Location location) {
+    location.isFavorite
+        ? ref.read(favoriteListNotifier.notifier).removeAsFavorite(location)
+        : ref.read(favoriteListNotifier.notifier).setAsFavorite(location);
   }
 }

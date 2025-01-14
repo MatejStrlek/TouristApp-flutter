@@ -25,11 +25,15 @@ class FavoriteListController extends Notifier<FavoriteListState> {
     return state;
   }
   void setAsFavorite(final Location location) {
+    location.isFavorite = true;
     _setAsFavorite(location);
     getAllFavorites();
+    ref.read(locationListNotifier.notifier).updateWithValue(location);
   }
   void removeAsFavorite(final Location location) {
+    location.isFavorite = false;
     _removeAsFavorite(location);
     getAllFavorites();
+    ref.read(locationListNotifier.notifier).updateWithValue(location);
   }
 }
