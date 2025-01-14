@@ -10,14 +10,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../widget/custom_primary_button.dart';
 import '../widget/custom_text_field.dart';
 
-class SignInScreen extends StatefulHookConsumerWidget {
-  const SignInScreen({super.key});
+class RegisterScreen extends StatefulHookConsumerWidget {
+  const RegisterScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SignInScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _RegisterScreenState();
 }
 
-class _SignInScreenState extends ConsumerState<SignInScreen> {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,6 +26,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     final isLoading = useState(false);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final confirmPasswordController = useTextEditingController();
 
     useValueChanged<AuthState, void>(authState, (_, newValue) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -60,14 +61,15 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 40),
                   Hero(
                     tag: "starting_image",
                     child: Image.asset("assets/images/login_image.png",
-                        width: 250),
+                        width: 150),
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "Please sign in to your account.",
+                    "Please create an account to continue.",
                     style: context.textSubtitle,
                   ),
                   const SizedBox(height: 20),
@@ -82,45 +84,44 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     controller: passwordController,
                     validator: _validatePassword,
                   ),
-                  const SizedBox(height: 5),
-                  const Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Forgot password?",
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.end,
-                    ),
+                  const SizedBox(height: 20),
+                  CustomTextField(
+                    label: "Confirm Password",
+                    controller: confirmPasswordController,
+                    validator: (value) => _validateConfirmPassword(
+                        value, passwordController.text),
                   ),
-                  const SizedBox(height: 45),
+                  const SizedBox(height: 65),
                   CustomPrimaryButton(
                     child: isLoading.value
                         ? CircularProgressIndicator(
                             backgroundColor: Colors.transparent,
                             color: Colors.white)
-                        : Text("Sign in",
+                        : Text("Sign up",
                             style: context.textButton
                                 .copyWith(color: Colors.white)),
-                    onPressed: () =>
-                        _signIn(emailController.text, passwordController.text),
+                    onPressed: () => _register(
+                      emailController.text,
+                      passwordController.text,
+                    ),
                   ),
                   const Spacer(),
                   RichText(
                     text: TextSpan(
-                      text: "Don't have an account? ",
+                      text: "Already have an account? ",
                       style: context.textSubtitle.copyWith(
                         color: Colors.black.withOpacity(0.7),
                       ),
                       children: [
                         TextSpan(
-                          text: "Sign up",
+                          text: "Log in",
                           style: context.textSubtitle.copyWith(
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.of(context)
-                                  .pushNamed(AppRoute.register);
+                              Navigator.of(context).pushNamed(AppRoute.signIn);
                             },
                         ),
                       ],
@@ -157,12 +158,25 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     if (value == null || value.isEmpty) {
       return "Field must not be empty.";
     }
+    if (value.length <= 7) {
+      return "Password is too short";
+    }
     return null;
   }
 
-  void _signIn(final String email, final String password) {
+  String? _validateConfirmPassword(String? value, String password) {
+    if (value == null || value.isEmpty) {
+      return "Field must not be empty.";
+    }
+    if (value != password) {
+      return "Passwords do not match.";
+    }
+    return null;
+  }
+
+  void _register(final String email, final String password) {
     if (_formKey.currentState!.validate()) {
-      ref.read(authNotifier.notifier).signIn(email, password);
+      ref.read(authNotifier.notifier).register(email, password);
     }
   }
 }

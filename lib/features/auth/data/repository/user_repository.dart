@@ -26,4 +26,20 @@ class UserRepositoryImpl implements UserRepository {
       return Left(NetworkFailure("Network error occurred"));
     }
   }
+
+  @override
+  Future<Either<Failure, User?>> register(String email, String password) async {
+    try {
+      final user = await _userApi.register(email, password);
+      return Right(user);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        return Left(FirebaseAuthFailure("Email already in use"));
+      } else {
+        return Left(FirebaseAuthFailure("Firebase error occurred"));
+      }
+    } catch (e) {
+      return Left(NetworkFailure("Network error occurred"));
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:faks/features/auth/presentation/screen/register_screen.dart';
 import 'package:faks/features/auth/presentation/screen/sign_in_screen.dart';
 import 'package:faks/features/common/presentation/screen/home_screen.dart';
 import 'package:faks/features/locations/presentation/location_detail/screen/location_detail_screen.dart';
@@ -10,6 +11,7 @@ class AppRoute {
 
   static const String splash = '/';
   static const String signIn = '/signIn';
+  static const String register = '/register';
   static const String home = '/home';
   static const String details = '/details';
 
@@ -19,6 +21,8 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case signIn:
         return MaterialPageRoute(builder: (_) => const SignInScreen());
+      case register:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case details:
