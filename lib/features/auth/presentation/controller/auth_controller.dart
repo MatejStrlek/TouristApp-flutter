@@ -1,5 +1,6 @@
 import 'package:faks/core/app_route.dart';
 import 'package:faks/core/di.dart';
+import 'package:faks/features/auth/domain/usecase/deactivate_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/register_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/sign_in_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/sign_out_use_case.dart';
@@ -12,6 +13,7 @@ class AuthController extends Notifier<AuthState> {
   late final SignInUseCase _signInUseCase;
   late final RegisterUseCase _registerUseCase;
   late final SignOutUseCase _signOutUseCase;
+  late final DeactivateUseCase _deactivateUseCase;
 
   late User? currentUser;
 
@@ -20,6 +22,7 @@ class AuthController extends Notifier<AuthState> {
     _signInUseCase = ref.watch(signInUseCaseProvider);
     _registerUseCase = ref.watch(registerUseCaseProvider);
     _signOutUseCase = ref.watch(signOutUseCaseProvider);
+    _deactivateUseCase = ref.watch(deactivateUseCaseProvider);
     return UnauthenticatedState();
   }
 
@@ -43,6 +46,17 @@ class AuthController extends Notifier<AuthState> {
 
   Future<void> signOut(BuildContext context) async {
     final results = await _signOutUseCase();
+    results.fold((error) {
+      state = UnauthenticatedState(failure: error);
+    }, (_) {
+      state = UnauthenticatedState();
+      currentUser = null;
+      Navigator.of(context).pushNamed(AppRoute.signIn);
+    });
+  }
+
+  Future<void> deactivate(BuildContext context) async {
+    final results = await _deactivateUseCase();
     results.fold((error) {
       state = UnauthenticatedState(failure: error);
     }, (_) {

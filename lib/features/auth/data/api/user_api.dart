@@ -20,4 +20,8 @@ class UserApi {
   Future<void> signOut() async {
     await instance.signOut();
   }
+
+  Future<void> deactivate() async {
+    await instance.currentUser!.delete();
+  }
 }

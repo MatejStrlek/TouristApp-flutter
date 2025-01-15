@@ -40,7 +40,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text((user?.displayName != null && user!.displayName!.isNotEmpty)
+                    Text(
+                        (user?.displayName != null &&
+                                user!.displayName!.isNotEmpty)
                             ? user.displayName!
                             : 'No name',
                         style: context.textTitle),
@@ -59,7 +61,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     CustomSecondaryButton(
                         child: const Text("Deactivate"),
                         onPressed: () {
-                          //ref.read(authNotifier.notifier).deactivate(context);
+                          ref.read(authNotifier.notifier).deactivate(context);
                         }),
                     const SizedBox(height: 20),
                     CustomPrimaryButton(

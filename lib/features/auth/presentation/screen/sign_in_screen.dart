@@ -39,11 +39,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
           case UnauthenticatedState(failure: var failure):
             isLoading.value = false;
-            final snackBar = SnackBar(
-              content: Text(failure!.message),
-              backgroundColor: Colors.red,
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            if (failure != null) {
+              final snackBar = SnackBar(
+                content: Text(failure.message),
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
         }
       });
     });

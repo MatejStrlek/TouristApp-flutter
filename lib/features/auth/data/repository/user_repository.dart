@@ -19,6 +19,10 @@ class UserRepositoryImpl implements UserRepository {
         return Left(FirebaseAuthFailure("User not found"));
       } else if (e.code == 'wrong-password') {
         return Left(FirebaseAuthFailure("Wrong password"));
+      } else if (e.code == 'email-already-in-use') {
+        return Left(FirebaseAuthFailure("Email already in use"));
+      } else if (e.code == 'too-many-requests') {
+        return Left(FirebaseAuthFailure("Too many requests"));
       } else {
         return Left(FirebaseAuthFailure("Firebase error occurred"));
       }
@@ -47,6 +51,16 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, void>> signOut() async {
     try {
       _userApi.signOut();
+      return Right(null);
+    } catch (e) {
+      return Left(NetworkFailure("Network error occurred"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deactivate() async {
+    try {
+      _userApi.deactivate();
       return Right(null);
     } catch (e) {
       return Left(NetworkFailure("Network error occurred"));
