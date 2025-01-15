@@ -1,5 +1,7 @@
+import 'package:faks/features/auth/presentation/screen/forgot_password_screen.dart';
 import 'package:faks/features/auth/presentation/screen/register_screen.dart';
 import 'package:faks/features/auth/presentation/screen/sign_in_screen.dart';
+import 'package:faks/features/auth/presentation/screen/verify_email_screen.dart';
 import 'package:faks/features/common/presentation/screen/home_screen.dart';
 import 'package:faks/features/locations/presentation/location_detail/screen/location_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,8 @@ class AppRoute {
 
   static const String splash = '/';
   static const String signIn = '/signIn';
+  static const String forgotPassword = '/forgotPassword';
+  static const String verifyEmail = '/verifyEmail';
   static const String register = '/register';
   static const String home = '/home';
   static const String details = '/details';
@@ -21,6 +25,11 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case signIn:
         return MaterialPageRoute(builder: (_) => const SignInScreen());
+      case forgotPassword:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      case verifyEmail:
+        final arguments = settings.arguments as String?;
+        return MaterialPageRoute(builder: (_) => VerifyEmailScreen(arguments: arguments));
       case register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case home:

@@ -33,7 +33,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         switch (authState) {
           case AuthenticatedState():
             isLoading.value = false;
-            Navigator.of(context).pushReplacementNamed(AppRoute.home);
+            Navigator.of(context).pushReplacementNamed(AppRoute.verifyEmail);
 
           case LoadingState():
             isLoading.value = true;
@@ -118,7 +118,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         TextSpan(
                           text: "Log in",
                           style: context.textSubtitle.copyWith(
-                            color: Colors.blue,
+                            color: context.colorGradientBegin,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

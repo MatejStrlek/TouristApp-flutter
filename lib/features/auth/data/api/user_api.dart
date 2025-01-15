@@ -24,4 +24,12 @@ class UserApi {
   Future<void> deactivate() async {
     await instance.currentUser!.delete();
   }
+
+  Future<void> resetPassword(final String email) async {
+    await instance.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> resendVerifyEmail() async {
+    await instance.currentUser!.sendEmailVerification();
+  }
 }

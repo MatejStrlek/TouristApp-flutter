@@ -9,4 +9,6 @@ abstract interface class UserRepository {
       final String email, final String password);
   Future<Either<Failure, void>> signOut();
   Future<Either<Failure, void>> deactivate();
+  Future<Either<Failure, void>> resetPassword(final String email);
+  Future<Either<Failure, void>> resendVerifyEmail();
 }

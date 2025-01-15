@@ -66,4 +66,25 @@ class UserRepositoryImpl implements UserRepository {
       return Left(NetworkFailure("Network error occurred"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> resendVerifyEmail() async {
+    try {
+      _userApi.resendVerifyEmail();
+      return Right(null);
+    } catch (e) {
+      return Left(NetworkFailure("Network error occurred"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetPassword(String email) async {
+    try {
+      _userApi.resetPassword(email);
+      return Right(null);
+    } catch (e) {
+      return Left(NetworkFailure("Network error occurred"));
+    }
+
+  }
 }

@@ -85,12 +85,20 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     validator: _validatePassword,
                   ),
                   const SizedBox(height: 5),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      "Forgot password?",
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.end,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoute.forgotPassword); // Replace with your actual route name
+                      },
+                      child: Text(
+                        "Forgot password?",
+                        style: context.textSubtitle.copyWith(
+                          color: context.colorGradientBegin,
+                        ),
+                        // Optional: Add a clickable feel with color
+                        textAlign: TextAlign.end,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 45),
@@ -116,7 +124,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         TextSpan(
                           text: "Sign up",
                           style: context.textSubtitle.copyWith(
-                            color: Colors.blue,
+                            color: context.colorGradientBegin,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

@@ -2,6 +2,8 @@ import 'package:faks/core/app_route.dart';
 import 'package:faks/core/di.dart';
 import 'package:faks/features/auth/domain/usecase/deactivate_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/register_use_case.dart';
+import 'package:faks/features/auth/domain/usecase/resend_verify_email_case.dart';
+import 'package:faks/features/auth/domain/usecase/reset_password_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/sign_in_use_case.dart';
 import 'package:faks/features/auth/domain/usecase/sign_out_use_case.dart';
 import 'package:faks/features/auth/presentation/controller/state/auth_state.dart';
@@ -14,6 +16,8 @@ class AuthController extends Notifier<AuthState> {
   late final RegisterUseCase _registerUseCase;
   late final SignOutUseCase _signOutUseCase;
   late final DeactivateUseCase _deactivateUseCase;
+  late final ResendVerifyEmailCase _resendVerifyEmailCase;
+  late final ResetPasswordUseCase _resetPasswordUseCase;
 
   late User? currentUser;
 
@@ -23,6 +27,8 @@ class AuthController extends Notifier<AuthState> {
     _registerUseCase = ref.watch(registerUseCaseProvider);
     _signOutUseCase = ref.watch(signOutUseCaseProvider);
     _deactivateUseCase = ref.watch(deactivateUseCaseProvider);
+    _resendVerifyEmailCase = ref.watch(resendVerifyEmailCaseProvider);
+    _resetPasswordUseCase = ref.watch(resetPasswordUseCaseProvider);
     return UnauthenticatedState();
   }
 
@@ -41,7 +47,11 @@ class AuthController extends Notifier<AuthState> {
     final result = await _registerUseCase(email, password);
 
     result.fold((failure) => state = UnauthenticatedState(failure: failure),
-        (user) => state = AuthenticatedState(user!));
+        (user) {
+      currentUser = user;
+      currentUser!.sendEmailVerification();
+      return state = AuthenticatedState(user!);
+    });
   }
 
   Future<void> signOut(BuildContext context) async {
@@ -63,6 +73,28 @@ class AuthController extends Notifier<AuthState> {
       state = UnauthenticatedState();
       currentUser = null;
       Navigator.of(context).pushNamed(AppRoute.signIn);
+    });
+  }
+
+  Future<void> resetPassword(BuildContext context, final String email) async {
+    final results = await _resetPasswordUseCase(email);
+    results.fold((error) {
+      state = UnauthenticatedState(failure: error);
+    }, (_) {
+      Navigator.of(context).pushNamed(
+        AppRoute.verifyEmail,
+        arguments: AppRoute.forgotPassword,
+      );
+      state = UnauthenticatedState();
+    });
+  }
+
+  Future<void> resendVerifyEmail() async {
+    final results = await _resendVerifyEmailCase();
+    results.fold((error) {
+      state = UnauthenticatedState(failure: error);
+    }, (_) {
+      state = UnauthenticatedState();
     });
   }
 }
