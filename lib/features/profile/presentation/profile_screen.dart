@@ -28,7 +28,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Profile', style: context.textTitle),
+                Text('Profile', style: context.textTitle), // TODO: Move text to start of the screen
                 Column(
                   children: [
                     CircleAvatar(
