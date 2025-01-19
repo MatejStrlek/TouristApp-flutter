@@ -18,7 +18,7 @@ TouristApp is a mobile application designed to help users discover and save thei
 - **Firebase**: Integrated for user authentication.
 - **Retrofit/Dio**: Used for handling asynchronous network requests.
 
-## Core Functionalities
+## Functionalities
 
 ### Platform Specifics
 
@@ -38,6 +38,11 @@ TouristApp is a mobile application designed to help users discover and save thei
 
 - The app leverages asynchronous communication with external services using Retrofit/Dio for networking, ensuring a smooth experience while waiting for tasks to complete.
 - The **Hive database** is used for local storage of favorite items and user settings, with advanced object-relational mapping to handle data relationships efficiently.
+
+### Email Verification and Password Reset
+
+- **Email Verification**: Upon registration, users will receive a verification email to confirm their account.
+- **Password Reset**: Users can reset their password by receiving a reset link via email, ensuring a secure and convenient recovery process.
 
 ### Permissions and Notifications
 
